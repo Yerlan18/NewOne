@@ -16,9 +16,12 @@ class App extends react.Component {
         };
     }
 
+    createOrder = (order) => {
+        alert(order.name)
+    }
     removeFromCart = (product) => {
         const cartItems = this.state.cartItems.slice();
-        this.setState({cartItems: cartItems.filter(x=> x._id !== product._id)})
+        this.setState({cartItems: cartItems.filter(x => x._id !== product._id)})
         localStorage.removeItem("cartItems", JSON.stringify(cartItems));
     }
 
@@ -26,12 +29,12 @@ class App extends react.Component {
         const cartItems = this.state.cartItems.slice();
         let alreadyInCart = false;
         cartItems.forEach(item => {
-            if(item._id === product._id){
+            if (item._id === product._id) {
                 item.count++;
                 alreadyInCart = true;
             }
         });
-        if(!alreadyInCart) {
+        if (!alreadyInCart) {
             cartItems.push({...product, count: 1})
         }
         this.setState({cartItems});
@@ -39,13 +42,12 @@ class App extends react.Component {
     };
 
 
-
     sortProducts = (event) => {
         const sort = event.target.value;
         this.setState((state) => ({
             sort: sort,
             products: this.state.products.slice().sort((a, b) =>
-            sort === "Lowest"
+                sort === "Lowest"
                     ? a.price > b.price
                     ? 1
                     : -1
@@ -84,11 +86,12 @@ class App extends react.Component {
                             <Filter count={this.state.products.length}
                                     size={this.state.size} sort={this.state.sort}
                                     filterProducts={this.filterProducts}
-                                    sortProducts={this.sortProducts}></Filter>
-                            <Products products={this.state.products} addToCart={this.addToCart}></Products>
+                                    sortProducts={this.sortProducts}/>
+                            <Products products={this.state.products} addToCart={this.addToCart}/>
                         </div>
                         <div className="sidebar">
-                            <Cart removeFromCart={this.removeFromCart} cartItems={this.state.cartItems} />
+                            <Cart createOrder={this.createOrder} removeFromCart={this.removeFromCart}
+                                  cartItems={this.state.cartItems}/>
                         </div>
                     </div>
                 </main>
