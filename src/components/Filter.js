@@ -5,8 +5,8 @@ import {filterProducts, sortProducts} from "./actions/productActions";
 class Filter extends Component {
     render() {
         return (
-            !this.props.filterProducts ? <div>Loading...</div> :
-
+             !this.props.filteredProducts ? <div>Loading...</div> :
+                (
             <div className="filter">
                 <div className="filter-result">{this.props.filteredProducts.length} Products</div>
                 <div className="filer-sort">Order {" "}
@@ -24,9 +24,10 @@ class Filter extends Component {
                     <option value="XL">XL</option>
                     <option value="XXL">XXL</option>
                 </select></div>
-            </div>
+            </div>)
         );
-    }
+    };
+
 }
 
 export default connect((state => ({
